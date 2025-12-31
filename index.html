@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>ارزانسرای باران</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* فونت‌ها */
+@font-face { font-family: "Shekari"; src: url("https://raw.githubusercontent.com/baranaarzani/Barana/main/Shekari.ttf") format("truetype"); }
+@font-face { font-family: "Adrin"; src: url("Adrin.ttf") format("truetype"); }
+
+body {
+  margin: 0;
+  font-family: "Adrin", sans-serif;
+  direction: rtl;
+  background-color: #ffffff;
+  color: #222;
+  padding-bottom: 20px;
+}
+
+/* هدر تصویر با ارتفاع یک سوم کاهش */
+.hero {
+  width: 100%;
+  height: 147px; 
+  overflow: hidden;
+}
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* متن معرفی */
+.intro-text {
+  text-align: center;
+  font-size: 22px;
+  font-family: "Shekari";
+  color: #3B4953;
+  margin: 20px 0 10px;
+  padding: 0 20px;
+  line-height: 1.8;
+}
+
+/* منوی همبرگری با آیکون 🪀 */
+.hamburger-menu {
+  font-family: "Shekari";
+  text-align: right;
+  padding: 10px 16px;
+}
+.hamburger {
+  font-size: 28px;
+  cursor: pointer;
+}
+.menu-links {
+  display: none;
+  margin-top: 6px;
+}
+.menu-links a{
+  display: block;
+  padding: 12px;
+  margin: 4px 0;
+  background: #a0522d;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-family: "Shekari";
+  text-align: center;
+  font-weight: bold;
+}
+.menu-links a:hover {
+  background: #8b401d;
+}
+
+/* اسلایدر افقی */
+.horizontal-title {
+  font-family: "Shekari";
+  font-size: 20px;
+  margin: 20px 16px 10px;
+  color: #3B4953;
+}
+
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+  padding: 10px 16px;
+  scroll-snap-type: x mandatory;
+}
+.horizontal-scroll::-webkit-scrollbar { display: none; }
+
+.product-card {
+  flex: 0 0 auto;
+  width: 140px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  scroll-snap-align: start;
+  text-align: center;
+  font-family: "Adrin";
+  text-decoration: none;
+  color: #000;
+}
+.product-card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+.product-card .title { font-size: 13px; margin: 6px 0 3px; }
+.product-card .price { font-size: 12px; color: #3B4953; font-weight: bold; margin-bottom: 6px; }
+.product-card .buy-btn{
+  background: #2e8b57;
+  color: #fff;
+  border: none;
+  width: 80%;
+  padding: 4px 0;
+  margin: 6px auto 6px auto;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* گل یاس بین اسلایدر و گرید */
+.yas-flower-section {
+  text-align: center;
+  margin: 10px 0;
+}
+.yas-flower {
+  width: 100%;
+  height: 80px; /* یک سوم کاهش ارتفاع */
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+  margin-bottom: 4px; 
+}
+.yas-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 0;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(160, 82, 45, 0.5); /* شیشه‌ای */
+  border: 1px solid #a0522d;
+  font-family: "Shekari";
+  font-weight: bold;
+  transition: background 0.2s;
+  text-align: center;
+}
+.yas-btn:hover {
+  background: rgba(160, 82, 45, 0.8);
+}
+
+/* فاصله بین اسلایدر و گرید */
+.spacer {
+  height: 10px;
+}
+
+/* گرید ثابت عمودی */
+.products {
+  max-width: 900px;
+  margin: 10px auto 30px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.card:hover { transform: scale(1.02); }
+.card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+.card-body { padding: 12px; font-size: 14px; text-align: center; font-family: "Adrin"; }
+.card-body .price { color: #3B4953; font-weight: bold; margin-top: 6px; }
+.card-body .buy-btn{
+  background: #ffcc00;
+  color: #000;
+  border: none;
+  width: 80%;
+  padding: 4px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/image_1766962498109.jpeg" alt="هدر جنگلی">
+</div>
+
+<div class="intro-text">از دلِ سادگی، زیبایی متولد می‌شود</div>
+
+<!-- منوی همبرگری با آیکون 🪀 -->
+<div class="hamburger-menu">
+  <div class="hamburger" onclick="toggleMenu()">🪀</div>
+  <div class="menu-links" id="menuLinks">
+    <a href="https://t.me/Allahosamad1">اعتماد واریزی</a>
+    <a href="https://t.me/Allahosamad1">چالش و جوایز</a>
+    <a href="https://t.me/Allahosamad1">تبلیغ شما حمایت ما</a>
+  </div>
+</div>
+
+<script>
+function toggleMenu() {
+  const menu = document.getElementById("menuLinks");
+  if(menu.style.display === "block") {
+    menu.style.display = "none";
+  } else {
+    menu.style.display = "block";
+  }
+}
+</script>
+
+<div class="horizontal-title">محصولات پرفروش</div>
+<div class="horizontal-scroll">
+  <a href="https://t.me/Allahosamad1" class="product-card">
+    <img src="540.jpg">
+    <div class="title">محصول 540</div>
+    <div class="price">۵۴۰,۰۰۰ تومان</div>
+    <div class="buy-btn">خرید</div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="product-card">
+    <img src="568.jpg">
+    <div class="title">محصول 568</div>
+    <div class="price">۵۶۸,۰۰۰ تومان</div>
+    <div class="buy-btn">خرید</div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="product-card">
+    <img src="575.jpg">
+    <div class="title">محصول 575</div>
+    <div class="price">۵۷۵,۰۰۰ تومان</div>
+    <div class="buy-btn">خرید</div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="product-card">
+    <img src="590.jpg">
+    <div class="title">محصول 590</div>
+    <div class="price">۵۹۰,۰۰۰ تومان</div>
+    <div class="buy-btn">خرید</div>
+  </a>
+</div>
+
+<!-- گل یاس بین اسلایدر و گرید -->
+<div class="yas-flower-section">
+  <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/%DA%AF%D9%84%20%DB%8C%D8%A7%D8%B3.jpeg" alt="گل یاس" class="yas-flower">
+  <a href="https://t.me/Allahosamad1" class="yas-btn">حمایت از نیازمندان</a>
+</div>
+
+<div class="spacer"></div>
+
+<div class="products">
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="710.jpg">
+    <div class="card-body">
+      محصول 710
+      <div class="price">۷۱۰,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="840.jpg">
+    <div class="card-body">
+      محصول 840
+      <div class="price">۸۴۰,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="860.jpg">
+    <div class="card-body">
+      محصول 860
+      <div class="price">۸۶۰,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="869.jpg">
+    <div class="card-body">
+      محصول 869
+      <div class="price">۸۶۹,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="899.jpg">
+    <div class="card-body">
+      محصول 899
+      <div class="price">۸۹۹,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="IMG_20251228_230850_803.jpg">
+    <div class="card-body">
+      مدل افرا – مشکی
+      <div class="price">۲۹۹,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="IMG_20251228_230850_840.jpg">
+    <div class="card-body">
+      مدل افرا – سورمه‌ای
+      <div class="price">۲۹۹,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+  <a href="https://t.me/Allahosamad1" class="card">
+    <img src="IMG_20251228_230850_830.jpg">
+    <div class="card-body">
+      مدل افرا – زرشکی
+      <div class="price">۲۹۹,۰۰۰ تومان</div>
+      <div class="buy-btn">خرید</div>
+    </div>
+  </a>
+</div>
+
+</body>
+</html>
