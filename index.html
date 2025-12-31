@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ارزانسرای باران</title>
+<style>
+body { font-family: sans-serif; margin:0; padding:0; background:#fff; direction:rtl; }
+header img { width:100%; height:200px; object-fit:cover; }
+.products { display:grid; grid-template-columns: repeat(2,1fr); gap:16px; padding:16px; max-width:900px; margin:auto; }
+.card { background:#fff; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:center; padding:10px; }
+.card img { width:100%; height:220px; object-fit:cover; border-radius:10px; }
+.buy-btn { display:inline-block; margin-top:8px; padding:6px 10px; background:#4CAF50; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:14px; }
+#orderFormContainer { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+#orderFormBox { background:#fff; padding:20px; border-radius:10px; max-width:400px; width:90%; }
+#thankYou { display:none; text-align:center; margin-top:10px; }
+input, textarea { width:100%; margin:6px 0; padding:8px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box; }
+button.submit-btn { background:#4CAF50; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/image_1766962498109.jpeg" alt="هدر جنگلی">
+</header>
+
+<div class="products">
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/IMG_20251228_230850_803.jpg">
+    <div>مدل افرا – مشکی</div>
+    <button class="buy-btn" onclick="openOrderForm('مدل افرا – مشکی')">خرید</button>
+  </div>
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/IMG_20251228_230850_840.jpg">
+    <div>مدل افرا – سورمه‌ای</div>
+    <button class="buy-btn" onclick="openOrderForm('مدل افرا – سورمه‌ای')">خرید</button>
+  </div>
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/IMG_20251228_230850_830.jpg">
+    <div>مدل افرا – زرشکی</div>
+    <button class="buy-btn" onclick="openOrderForm('مدل افرا – زرشکی')">خرید</button>
+  </div>
+  <div class="card">
+    <img src="https://raw.githubusercontent.com/baranaarzani/Barana/main/IMG_20251229_010519_062.jpg">
+    <div>سویشرت جلو زیپ – گالری</div>
+    <button class="buy-btn" onclick="openOrderForm('سویشرت جلو زیپ – گالری')">خرید</button>
+  </div>
+</div>
+
+<!-- فرم سفارش -->
+<div id="orderFormContainer">
+  <div id="orderFormBox">
+    <h3>فرم سفارش</h3>
+    <form id="orderForm">
+      <input type="text" name="name" placeholder="نام و نام خانوادگی" required>
+      <input type="text" name="address" placeholder="آدرس" required>
+      <input type="hidden" name="product" id="productField">
+      <button type="submit" class="submit-btn">ارسال سفارش</button>
+    </form>
+    <div id="thankYou">
+      <p>سفارش شما ثبت شد!</p>
+      <p>کد پیگیری شما: <span id="trackingCode"></span></p>
+    </div>
+    <button onclick="closeOrderForm()" style="margin-top:10px; background:#ccc; padding:6px 10px; border:none; border-radius:6px;">بستن</button>
+  </div>
+</div>
+
+<script>
+const BOT_TOKEN = "8564441672:AAGRh4W_IX5Y884utwiH0BM8YKILCKeqKdk";
+const CHAT_ID = "8564441672";
+
+function openOrderForm(productName){
+  document.getElementById('productField').value = productName;
+  document.getElementById('orderFormContainer').style.display = "flex";
+}
+
+function closeOrderForm(){
+  document.getElementById('orderFormContainer').style.display = "none";
+  document.getElementById('thankYou').style.display = "none";
+  document.getElementById('orderForm').style.display = "block";
+  document.getElementById('orderForm').reset();
+}
+
+document.getElementById('orderForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  const name = this.name.value;
+  const address = this.address.value;
+  const product = this.product.value;
+  const trackingCode = 'ORD-' + Math.floor(1000 + Math.random()*9000);
+
+  // نمایش کد پیگیری به مشتری
+  document.getElementById('trackingCode').textContent = trackingCode;
+  document.getElementById('thankYou').style.display = "block";
+  this.style.display = "none";
+
+  // ساخت پیام برای تلگرام
+  const message = `سفارش جدید:\nنام: ${name}\nآدرس: ${address}\nمحصول: ${product}\nکد پیگیری: ${trackingCode}`;
+
+  // ارسال پیام به تلگرام
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`)
+  .then(response => console.log('پیام به تلگرام ارسال شد'))
+  .catch(err => console.error('خطا در ارسال پیام:', err));
+});
+</script>
+
+</body>
+</html>
